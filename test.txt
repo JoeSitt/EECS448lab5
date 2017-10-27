@@ -1,0 +1,46 @@
+<html>
+    <head>
+      <title>View Posts</title>
+      <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+<body>
+
+    <form action="ViewPosts.php" method="post" onsubmit="return Check()">
+
+
+<?php
+$word123='$'.'word123';
+ $mysqli = new mysqli("mysql.eecs.ku.edu", "jsittenauer", "P@$$word123", "jsittenauer");
+if ($mysqli->connect_errno) {
+    printf("Connect failed: %s\n", $mysqli->connect_error);
+    exit();
+}
+$query = "SELECT * FROM Users";
+ //echo "<br>";
+ if ($result = $mysqli->query($query)) {
+echo "Users: <br>";
+       echo "<select>";
+     /* fetch associative array */
+     while ($row = $result->fetch_assoc()) {
+
+	$user='"'.$row['user_id'].'"';
+  echo $user;
+	echo ("<option value=".$user.">".$user."</option>");
+
+     }
+            echo "</select>";
+     /* free result set */
+     //$result->free();
+ }else{
+echo "Error: " . "<br>" . $mysqli->error;
+}
+?>
+
+
+        <input type="submit" >
+        <input type="reset">
+
+    </form>
+    <script src="formChecker.js"></script>
+</body>
+</html>

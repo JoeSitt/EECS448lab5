@@ -1,0 +1,61 @@
+<?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
+$word123='$'.'word123';
+ $mysqli = mysqli_connect("mysql.eecs.ku.edu", "jsittenauer", "P@$$word123", "jsittenauer")
+ or die('Error connecting to MySQL server.'); ?>
+
+<html>
+ <head>
+   <link rel="stylesheet" type="text/css" href="style.css">
+ </head>
+<body class="page_bg">
+
+
+
+
+<?php
+ $query = "SELECT * FROM Posts";
+
+
+
+ if($result = mysqli_query($mysqli, $query)){
+
+
+
+echo '<form action="DeletePost.php" method="POST" id="posts" onsubmit="return Check()">';
+  echo "Select all that you wish to delete: <br>";
+
+
+
+  while ($row = $result->fetch_assoc()) {
+      $postid = $row["post_id"];
+      $post = $row["content"];
+      echo "<input type='checkbox' name='post[]' value='$postid'>" . "POST ID: " . $postid . " || Content: " . $post . "<br>";
+      }
+
+
+
+    //  $query = "SELECT * FROM Posts";
+    //  echo "<form action='DeletePost.php' method='POST' id='posts'>";
+    //  if ($result = $mysqli->query($query)) {
+    //  while ($row = $result->fetch_assoc()) {
+    //      $postid = $row["post_id"];
+    //      $post = $row["content"];
+    //      echo "<input type='checkbox' name='post[]' value='$postid'>" . "POST ID: " . $postid . " || Content: " . $post . "<br>";
+    //      }
+
+
+
+ echo '<input type="submit" ><br>';
+ echo '<input type="reset">';
+ echo '</form>';
+ echo '<script src="formChecker.js"></script>';
+ }
+ /* close connection */
+ $mysqli->close();
+ ?>
+
+</body>
+</html>

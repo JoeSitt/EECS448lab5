@@ -1,0 +1,49 @@
+<?php
+
+
+$word123='$'.'word123';
+ $mysqli = mysqli_connect("mysql.eecs.ku.edu", "jsittenauer", "P@$$word123", "jsittenauer")
+ or die('Error connecting to MySQL server.'); ?>
+
+<html>
+ <head>
+   <link rel="stylesheet" type="text/css" href="style.css">
+ </head>
+<body class="page_bg">
+
+
+
+
+<?php
+ $query = "SELECT * FROM Users";
+
+
+
+ if($result = mysqli_query($mysqli, $query)){
+
+
+
+echo '<form action="ViewPosts.php" method="POST" onsubmit="return Check()">';
+  echo "User: <br>";
+ echo '<select  name="name" id="name">';
+
+
+ while ($row = mysqli_fetch_assoc($result)) {
+
+           printf ("<option value='%s'> %s </option>", $row["user_id"], $row["user_id"]);
+
+ }
+
+
+
+ echo "</select><br>";
+ echo '<input type="submit" ><br>';
+ echo '<input type="reset">';
+ echo '</form>';
+ echo '<script src="formChecker.js"></script>';
+ }
+
+ ?>
+
+</body>
+</html>
